@@ -1,0 +1,79 @@
+name: chat-export
+version: 1.0.0
+description: 飞书聊天记录导出+AI整理工具，无需管理员权限一键导出任意聊天记录，支持多格式输出+AI自动结构化整理
+author: AutoClaw
+homepage: https://github.com/leonova-ai/lark-chat-export-skill
+tags:
+  - 办公效率
+  - 飞书
+  - 导出
+  - AI
+  - 聊天记录
+  - 纪要整理
+
+commands:
+  - name: export
+    description: 导出飞书聊天记录，支持按条件筛选，可选AI自动整理
+    usage: lark chat-export <chat_id> [options]
+    examples:
+      - 导出指定群4月1日到4月18日的聊天记录，保存为Markdown格式：lark chat-export oc_xxxxxx -s "2026-04-01" -e "2026-04-18" -f md -o ./chat.md
+      - 导出最近7天和张三的私聊记录，自动生成AI摘要：lark chat-export ou_xxxxxx --last 7 --ai-summary
+      - 导出群里@我的所有消息，导出为网页格式：lark chat-export oc_xxxxxx --at-me -f html
+    parameters:
+      - name: chat_id
+        type: string
+        description: 飞书群ID(oc_xxx)或用户open_id(ou_xxx)，必填
+        required: true
+      - name: last
+        type: number
+        description: 导出最近N天的聊天记录，和-s/-e参数二选一
+        required: false
+      - name: start
+        alias: s
+        type: string
+        description: 导出开始时间，格式：YYYY-MM-DD 或 YYYY-MM-DD HH:MM
+        required: false
+      - name: end
+        alias: e
+        type: string
+        description: 导出结束时间，格式：YYYY-MM-DD 或 YYYY-MM-DD HH:MM，默认当前时间
+        required: false
+      - name: keyword
+        alias: k
+        type: string
+        description: 只导出包含指定关键词的消息
+        required: false
+      - name: sender
+        type: string
+        description: 只导出指定发言人（用户ID/姓名）的消息
+        required: false
+      - name: at-me
+        type: boolean
+        description: 只导出@我的消息，默认false
+        required: false
+      - name: format
+        alias: f
+        type: string
+        enum: [md, json, html, txt]
+        default: md
+        description: 导出格式，支持md(Markdown)/json/html/txt，默认md
+        required: false
+      - name: ai-summary
+        type: boolean
+        description: 是否自动调用AI生成聊天摘要/纪要，默认false
+        required: false
+      - name: ai-mode
+        type: string
+        enum: [summary, meeting, todo, topics]
+        default: summary
+        description: AI整理模式，summary(常规摘要)/meeting(会议纪要)/todo(待办清单)/topics(按主题分类)，默认summary
+        required: false
+      - name: output
+        alias: o
+        type: string
+        description: 输出文件路径，默认自动生成文件名保存在当前目录
+        required: false
+      - name: no-attachment
+        type: boolean
+        description: 是否忽略附件/图片/文件消息，默认false会导出附件信息
+        required: false

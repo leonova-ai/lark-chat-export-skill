@@ -1,0 +1,35 @@
+{
+  "name": "lark-chat-export-skill",
+  "version": "1.0.0",
+  "description": "飞书聊天记录导出+AI整理工具，无需管理员权限一键导出任意聊天记录，支持多格式输出+AI自动结构化整理",
+  "main": "index.js",
+  "bin": {
+    "lark-chat-export": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
+  },
+  "keywords": [
+    "lark",
+    "feishu",
+    "chat",
+    "export",
+    "skill",
+    "cli",
+    "ai",
+    "summary"
+  ],
+  "author": "AutoClaw",
+  "license": "MIT",
+  "dependencies": {
+    "@larksuiteoapi/node-sdk": "^1.22.0",
+    "commander": "^11.0.0",
+    "chalk": "^4.1.2",
+    "dotenv": "^16.0.0",
+    "openai": "^4.0.0",
+    "dayjs": "^1.11.0",
+    "ejs": "^3.1.9",
+    "cli-progress": "^3.12.0"
+  }
+}
